@@ -3,447 +3,696 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Edem ArtHouse — Original Works by Edem</title>
-  <meta name="description" content="Eden ArtHouse — Original paintings. Original Works by Eden." />
+  <title>Edem ArtHouse — Original Works by Edem Seitasanov</title>
+  <meta name="description" content="Edem ArtHouse — one-of-one original paintings by Edem Seitasanov. No prints. No reproductions." />
 
   <link rel="icon" href="assets/favicon/favicon.ico" />
-  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    :root{
+      --bg:#111111f8;
+      --card:#1b1b1be3;
+      --text:#e9edf5;
+      --muted:#a7b0c0;
+      --line:rgba(255,255,255,.10);
+      --accent:#caa46a;
+      --shadow: 0 16px 40px rgba(28, 28, 28, 0.35);
+      --shadow2: 0 24px 80px rgba(29, 29, 29, 0.55);
+      --r:18px;
+      --r2:24px;
+      --max:1200px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 800px at 20% -10%, rgba(202,164,106,.22), transparent 55%),
+        radial-gradient(900px 600px at 90% 0%, rgba(120,170,255,.16), transparent 55%),
+        var(--bg);
+    }
+    a{color:inherit; text-decoration:none}
+    img{max-width:100%; display:block}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 70px;}
+
+    /* Topbar */
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius: var(--r2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 14px;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+    }
+    .brand{
+      display:flex; flex-direction:column; gap:4px;
+    }
+    .brand .name{
+      font-weight:800;
+      letter-spacing:.4px;
+      font-size:16px;
+    }
+    .brand .tag{
+      font-size:12.5px;
+      color:var(--muted);
+      line-height:1.25;
+    }
+    .nav{
+      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      align-items:center;
+    }
+    .nav a.link{
+      padding:10px 12px;
+      border-radius: 14px;
+      border:1px solid transparent;
+      color: var(--muted);
+      transition:.2s ease;
+    }
+    .nav a.link:hover{
+      color: var(--text);
+      border-color: rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      transform: translateY(-1px);
+    }
+
+    /* Buttons */
+    .btn{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:14px;
+      display:inline-flex; gap:10px; align-items:center;
+      transition:.2s ease;
+      cursor:pointer;
+      user-select:none;
+      font-size:14px;
+    }
+    .btn:hover{transform: translateY(-1px); border-color:rgba(202,164,106,.55)}
+    .btn.primary{
+      background: rgba(202,164,106,.16);
+      border-color: rgba(202,164,106,.45);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.02);
+    }
+
+    /* Hero */
+    .hero{
+      margin-top:16px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 26px;
+      background:
+        radial-gradient(900px 500px at 0% 0%, rgba(202,164,106,.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow2);
+      overflow:hidden;
+    }
+    .hero-inner{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 18px;
+      padding: 22px;
+      align-items: center;
+    }
+    @media (max-width: 900px){
+      .hero-inner{grid-template-columns:1fr}
+    }
+    .hero h1{
+      margin:0;
+      font-size: 34px;
+      letter-spacing:.2px;
+      line-height:1.05;
+    }
+    .hero p{
+      margin:12px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+      line-height:1.45;
+      max-width: 55ch;
+    }
+    .hero-actions{
+      margin-top:16px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .hero-card{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      background: rgba(0,0,0,.22);
+      overflow:hidden;
+    }
+    .hero-card img{width:100%; height:auto}
+    .hero-card .cap{
+      padding:12px 14px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.3;
+    }
+
+    /* Section */
+    section{margin-top:22px}
+    .section-head{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin-top:20px;
+    }
+    .section-head h2{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:.2px;
+    }
+    .section-head p{
+      margin:0;
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height:1.35;
+    }
+
+    /* Controls */
+    .controls{
+      margin-top:14px;
+      display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center; justify-content:space-between;
+    }
+    .search{
+      flex:1;
+      min-width:240px;
+      display:flex; align-items:center; gap:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .search input{
+      width:100%;
+      border:0;
+      outline:0;
+      background: transparent;
+      color: var(--text);
+      font-size:14px;
+    }
+    .pillset{display:flex; gap:8px; flex-wrap:wrap}
+    .pill{
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: var(--muted);
+      cursor:pointer;
+      user-select:none;
+      transition:.2s ease;
+      font-size:13px;
+    }
+    .pill:hover{transform: translateY(-1px); border-color: rgba(202,164,106,.35)}
+    .pill.active{
+      color:var(--text);
+      border-color: rgba(202,164,106,.55);
+      background: rgba(202,164,106,.14)
+    }
+
+    /* Masonry */
+    .masonry{
+      margin-top:16px;
+      column-count: 3;
+      column-gap: 16px;
+    }
+    @media (max-width: 980px){ .masonry{column-count:2;} }
+    @media (max-width: 560px){ .masonry{column-count:1;} }
+
+    .card{
+      break-inside: avoid;
+      margin: 0 0 16px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: var(--r);
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+      transition: transform .18s ease, border-color .18s ease;
+    }
+    .card:hover{transform: translateY(-2px); border-color: rgba(202,164,106,.35)}
+    .thumb{
+      position:relative;
+      overflow:hidden;
+      background: #0f1117;
+      cursor: zoom-in;
+    }
+    .thumb img{
+      width:100%;
+      transform: scale(1.01);
+      transition: transform .35s ease;
+    }
+    .card:hover .thumb img{ transform: scale(1.06); }
+
+    .badge{
+      position:absolute;
+      left:12px;
+      top:12px;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.35);
+      backdrop-filter: blur(8px);
+      font-size:12px;
+      color: var(--text);
+    }
+
+    .body{padding:14px 14px 16px;}
+    .title{
+      margin:0;
+      font-size:15px;
+      letter-spacing:.2px;
+      line-height:1.25;
+    }
+    .meta{
+      margin:8px 0 0;
+      color: var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+    .row{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-top:12px;
+    }
+    .price{
+      font-weight:800;
+      color: var(--text);
+      letter-spacing:.2px;
+    }
+    .mini{
+      font-size:12px;
+      color: var(--muted);
+      margin-top:3px;
+    }
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      display:none;
+      align-items:center; justify-content:center;
+      background: rgba(0,0,0,.74);
+      padding: 18px;
+      z-index: 50;
+    }
+    .modal.open{display:flex}
+    .modal-box{
+      width:min(1080px, 96vw);
+      border:1px solid rgba(255,255,255,.12);
+      border-radius: 22px;
+      overflow:hidden;
+      background: rgba(10,12,16,.92);
+      box-shadow: 0 40px 120px rgba(0,0,0,.6);
+      backdrop-filter: blur(10px);
+    }
+    .modal-top{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:12px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .modal-top strong{font-size:14px}
+    .x{
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      border-radius: 12px;
+      padding:8px 10px;
+      cursor:pointer;
+    }
+    .modal-content{
+      display:grid;
+      grid-template-columns: 1.6fr 1fr;
+    }
+    @media (max-width: 860px){ .modal-content{grid-template-columns:1fr;} }
+    .modal-img{background:#0f1117;}
+    .modal-img img{width:100%; height:auto}
+    .modal-info{padding:16px;}
+    .modal-info h2{margin:0; font-size:18px; line-height:1.15}
+    .modal-info p{margin:10px 0 0; color: var(--muted); line-height:1.45; font-size:14px}
+    .modal-actions{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap}
+
+    /* About + Contact */
+    .about{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      background: rgba(255,255,255,.03);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+    .about p{
+      margin: 0 0 12px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14.5px;
+    }
+    .about p:last-child{margin-bottom:0}
+
+    .contact{
+      display:flex; gap:10px; flex-wrap:wrap;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 22px;
+      background: rgba(255,255,255,.03);
+      padding: 16px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.28);
+    }
+
+    footer{
+      margin-top:30px;
+      color: var(--muted);
+      font-size:13px;
+      text-align:center;
+      opacity:.92;
+    }
+    .small-note{
+      margin-top:6px;
+      font-size:12px;
+      color: rgba(167,176,192,.85);
+    }
+  </style>
 </head>
 
 <body>
-  <header class="header">
-    <div class="brand">
-      <div class="logo">Edem ArtHouse</div>
-      <div class="tagline">Original Works by Edem Seitasanov</div>
+  <div class="wrap">
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="brand">
+        <div class="name">Edem ArtHouse</div>
+        <div class="tag">Original Works by Edem Seitasanov • One-of-one originals</div>
+      </div>
+
+      <div class="nav">
+        <a class="link" href="#collection">Collection</a>
+        <a class="link" href="#about">About</a>
+        <a class="btn primary" id="inquireTop" href="#contact">Inquire</a>
+      </div>
     </div>
 
-    <nav class="nav">
-      <a href="#collection">Collection</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="btn">Inquire</a>
-    </nav>
-  </header>
-
-  <main>
+    <!-- Hero -->
     <section class="hero">
-      <div class="hero-text">
-        <h1>Original paintings, created with intention.</h1>
-        <p>One-of-one works. No prints. No reproductions.</p>
-        <a class="btn" href="#collection">View Collection</a>
-      </div>
-
-      <div class="hero-image">
-        <!-- Поставь сюда свою лучшую картину -->
-        <img src="assets/img/painting-01.jpg" alt="Featured artwork by Eden" />
-      </div>
-    </section>
-
-    <section id="collection" class="section">
-      <div class="section-head">
-        <h2>Collection</h2>
-        <p>Available originals. Each piece is unique.</p>
-      </div>
-
-      <div class="grid">
-        <!-- Карточка 1 -->
-        <article class="card">
-          <img src="assets/img/painting-01.jpg" alt="Artwork 01" />
-          <div class="card-body">
-            <h3>Gurzuf near Chekhov's dacha</h3>
-            <div class="meta">Oil on canvas · 70×100 cm · 2012</div>
-            <div class="row">
-              <span class="price">€6000</span>
-              <span class="status available">Available</span>
-            </div>
-            <a class="link" href="#contact">Inquire</a>
+      <div class="hero-inner">
+        <div>
+          <h1>Original paintings, created with intention.</h1>
+          <p>One-of-one works. No prints. No reproductions. Each painting is a complete statement — built with light, structure, and quiet emotion.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#collection">View Collection</a>
+            <a class="btn ghost" href="#contact">Purchase / Commissions</a>
           </div>
-        </article>
+          <div class="small-note">Tip: click any artwork to preview full size.</div>
+        </div>
 
-        <!-- Карточка 2 -->
-        <article class="card">
-          <img src="assets/img/painting-02.jpg" alt="Artwork 02" />
-          <div class="card-body">
-            <h3>Simferopol Reservoir</h3>
-            <div class="meta">Watercolor · 40×60 cm · 2010</div>
-            <div class="row">
-              <span class="price">€1000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 3 -->
-        <article class="card">
-          <img src="assets/img/painting-03.jpg" alt="Artwork 03" />
-          <div class="card-body">
-            <h3>Khan's Palace</h3>
-            <div class="meta">Oil on canvas · 40×60 cm · 2009</div>
-            <div class="row">
-              <span class="price">€5000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 4 -->
-        <article class="card">
-          <img src="assets/img/painting-04.jpg" alt="Artwork 04" />
-          <div class="card-body">
-            <h3>Khan's Palace of Bakhchisaray</h3>
-            <div class="meta">Oil on canvas · 40×120 cm · 2008</div>
-            <div class="row">
-              <span class="price">€5000</span>
-              <span class="status available">Available</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 5 -->
-        <article class="card">
-          <img src="assets/img/painting-05.jpg" alt="Artwork 05" />
-          <div class="card-body">
-            <h3>KHU named after. N.S. Samokisha</h3>
-            <div class="meta">Watercolor · 40×60 cm · 2011</div>
-            <div class="row">
-              <span class="price">€800</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 6 -->
-        <article class="card">
-          <img src="assets/img/painting-06.jpg" alt="Artwork 06" />
-          <div class="card-body">
-            <h3>Crimean lilac</h3>
-            <div class="meta">Watercolor · 50×60 cm · 2009</div>
-            <div class="row">
-              <span class="price">€1100</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-        
-        <!-- Карточка 7 -->
-        <article class="card">
-          <img src="assets/img/painting-07.jpg" alt="Artwork 07" />
-          <div class="card-body">
-            <h3>Old Alushta</h3>
-            <div class="meta">Oil on canvas · 20×50 cm · 2005</div>
-            <div class="row">
-              <span class="price">€2300</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 8 -->
-        <article class="card">
-          <img src="assets/img/painting-08.jpg" alt="Artwork 08" />
-          <div class="card-body">
-            <h3>Holidays in Artek</h3>
-            <div class="meta">Oil on canvas · 20×50 cm · 2007</div>
-            <div class="row">
-              <span class="price">€2400</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 9 -->
-        <article class="card">
-          <img src="assets/img/painting-09.jpg" alt="Artwork 09" />
-          <div class="card-body">
-            <h3>Old Gurzuf</h3>
-            <div class="meta">Oil on canvas · 20×50 cm · 2008</div>
-            <div class="row">
-              <span class="price">€4600</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 10 -->
-        <article class="card">
-          <img src="assets/img/painting-10.jpg" alt="Artwork 10" />
-          <div class="card-body">
-            <h3>Native village of Akropolis</h3>
-            <div class="meta">Watercolor · 50×70 cm · 2007</div>
-            <div class="row">
-              <span class="price">€7200</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 11 -->
-        <article class="card">
-          <img src="assets/img/painting-11.jpg" alt="Artwork 11" />
-          <div class="card-body">
-            <h3>Moscow Bridge in Kyiv</h3>
-            <div class="meta">Watercolor · 30×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€3200</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-         <!-- Карточка 12 -->
-        <article class="card">
-          <img src="assets/img/painting-12.jpg" alt="Artwork 12" />
-          <div class="card-body">
-            <h3>Still life</h3>
-            <div class="meta">Oil on canvas · 60×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€3200</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 13 -->
-        <article class="card">
-          <img src="assets/img/painting-13.jpg" alt="Artwork 13" />
-          <div class="card-body">
-            <h3>Poor artists</h3>
-            <div class="meta">Oil on canvas · 60×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€2300</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 14 -->
-        <article class="card">
-          <img src="assets/img/painting-14.jpg" alt="Artwork 14" />
-          <div class="card-body">
-            <h3>Young Japanese master</h3>
-            <div class="meta">Oil on canvas · 60×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€4300</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 15 -->
-        <article class="card">
-          <img src="assets/img/painting-15.jpg" alt="Artwork 15" />
-          <div class="card-body">
-            <h3>Old Bakhchisarai</h3>
-            <div class="meta">Oil on canvas · 60×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€4300</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 16 -->
-        <article class="card">
-          <img src="assets/img/painting-16.jpg" alt="Artwork 16" />
-          <div class="card-body">
-            <h3>Vozdvizhenskaya Street, Kyiv</h3>
-            <div class="meta">Watercolor · 60×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€3700</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 17 -->
-        <article class="card">
-          <img src="assets/img/painting-17.jpg" alt="Artwork 17" />
-          <div class="card-body">
-            <h3>Old Simferopol</h3>
-            <div class="meta">Watercolor · 40×50 cm · 2006</div>
-            <div class="row">
-              <span class="price">€1700</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 18 -->
-        <article class="card">
-          <img src="assets/img/painting-18.jpg" alt="Artwork 18" />
-          <div class="card-body">
-            <h3>Parental home</h3>
-            <div class="meta">Sepia · 29,72×42 cm · 2004</div>
-            <div class="row">
-              <span class="price">€12300</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 19 -->
-        <article class="card">
-          <img src="assets/img/painting-19.jpg" alt="Artwork 19" />
-          <div class="card-body">
-            <h3>Grandmother</h3>
-            <div class="meta">Oil on canvas · 50×70 cm · 2006</div>
-            <div class="row">
-              <span class="price">€10000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 20 -->
-        <article class="card">
-          <img src="assets/img/painting-20.jpg" alt="Artwork 20" />
-          <div class="card-body">
-            <h3>Kyiv Opera House</h3>
-            <div class="meta">Watercolor · 50×70 cm · 2012</div>
-            <div class="row">
-              <span class="price">€3100</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 21 -->
-        <article class="card">
-          <img src="assets/img/painting-21.jpg" alt="Artwork 21" />
-          <div class="card-body">
-            <h3>Cinema House in Simferopol</h3>
-            <div class="meta">Watercolor · 29,72×42 cm · 2007</div>
-            <div class="row">
-              <span class="price">€1000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 22 -->
-        <article class="card">
-          <img src="assets/img/painting-22.jpg" alt="Artwork 22" />
-          <div class="card-body">
-            <h3>Stranger on the beach</h3>
-            <div class="meta">Oil on canvas · 40×70 cm · 2011</div>
-            <div class="row">
-              <span class="price">€9000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 23 -->
-        <article class="card">
-          <img src="assets/img/painting-23.jpg" alt="Artwork 23" />
-          <div class="card-body">
-            <h3>Stranger on the beach</h3>
-            <div class="meta">Oil on canvas · 40×70 cm · 2011</div>
-            <div class="row">
-              <span class="price">€9000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 24 -->
-        <article class="card">
-          <img src="assets/img/painting-24.jpg" alt="Artwork 24" />
-          <div class="card-body">
-            <h3>Stranger on the beach</h3>
-            <div class="meta">Oil on canvas · 40×70 cm · 2011</div>
-            <div class="row">
-              <span class="price">€9000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 25 -->
-        <article class="card">
-          <img src="assets/img/painting-25.jpg" alt="Artwork 25" />
-          <div class="card-body">
-            <h3>Stranger on the beach</h3>
-            <div class="meta">Oil on canvas · 40×70 cm · 2011</div>
-            <div class="row">
-              <span class="price">€9000</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 26 -->
-        <article class="card">
-          <img src="assets/img/painting-26.jpg" alt="Artwork 26" />
-          <div class="card-body">
-            <h3>Charles Bridge</h3>
-            <div class="meta">Oil on canvas · 40×70 cm · 2011</div>
-            <div class="row">
-              <span class="price">€400</span>
-              <span class="status sold">Sold</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Карточка 27 -->
-        <article class="card">
-          <img src="assets/img/painting-27.jpg" alt="Artwork 27" />
-          <div class="card-body">
-            <h3>Church of St. Nicholas, Kyiv</h3>
-            <div class="meta">Watercolor · 40×70 cm · 2011</div>
-            <div class="row">
-              <span class="price">€2400</span>
-              <span class="status available">Available</span>
-            </div>
-          </div>
-        </article>
-
-        <!-- Добавляй карточки по аналогии -->
+        <div class="hero-card">
+          <img src="assets/img/painting-01.jpg" alt="Featured artwork by Edem" loading="eager">
+          <div class="cap">Featured work • Tap to explore the collection</div>
+        </div>
       </div>
     </section>
 
-    <section id="about" class="section">
+    <!-- Collection -->
+    <section id="collection">
       <div class="section-head">
-        <h2>About</h2>
+        <div>
+          <h2>Collection</h2>
+          <p>Available originals. Each piece is unique.</p>
+        </div>
+        <a class="btn" href="#contact">Ask a question</a>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <span style="opacity:.8">🔎</span>
+          <input id="search" type="text" placeholder="Search: title, medium, year, size…" />
+        </div>
+
+        <div class="pillset" id="filters">
+          <div class="pill active" data-tag="all">All</div>
+          <div class="pill" data-tag="available">Available</div>
+          <div class="pill" data-tag="sold">Sold</div>
+          <div class="pill" data-tag="oil">Oil</div>
+          <div class="pill" data-tag="watercolor">Watercolor</div>
+          <div class="pill" data-tag="sepia">Sepia</div>
+        </div>
+      </div>
+
+      <div class="masonry" id="gallery"></div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <div class="section-head">
+        <div>
+          <h2>About</h2>
+          <p>Architecture, light, and emotional precision.</p>
+        </div>
       </div>
 
       <div class="about">
         <p>
-            Edem Seitasanov is an architect-artist whose work exists at the intersection of structure and emotion.
-        Holding a PhD in Architecture and Urban Planning from the National Academy of Fine Arts and Architecture in Kyiv, his artistic language is deeply informed by spatial thinking, compositional balance, and an understanding of how light shapes perception.
-        His paintings are not spontaneous gestures — they are constructed experiences.
+          Edem Seitasanov is an architect-artist whose work exists at the intersection of structure and emotion.
+          Holding a PhD in Architecture and Urban Planning from the National Academy of Fine Arts and Architecture in Kyiv,
+          his artistic language is informed by spatial thinking, compositional balance, and an understanding of how light shapes perception.
         </p>
         <p>
-            Years of architectural research have refined his sensitivity to proportion, rhythm, and silence within form. Each canvas becomes a dialogue between precision and intuition, where geometry meets atmosphere.
-        Beyond painting, Edem is also a composer and creative visionary. Music and visual art coexist in his practice, influencing one another through tempo, tension, and harmony. The same discipline that defines architectural space informs his brushwork; the same emotional depth found in sound resonates through his color palette.
+          Years of architectural research refined his sensitivity to proportion, rhythm, and silence within form.
+          Each canvas becomes a dialogue between precision and intuition, where geometry meets atmosphere.
+          Beyond painting, Edem is also a composer — music and visual art coexist through tempo, tension, and harmony.
         </p>
-
         <p>
-            Every work at Eden ArtHouse is a singular creation — one-of-one, original, and unrepeated.
-        There are no reproductions, no editions. Each painting is conceived as a complete artistic statement, intended for collectors who value authenticity, depth, and intellectual craftsmanship.
-        Through light, structure, and quiet emotional intensity, Edem creates art that inhabits space — not merely decorates it.
+          Every work at Edem ArtHouse is a singular creation — one-of-one, original, and unrepeated.
+          There are no reproductions or editions. Each painting is conceived as a complete artistic statement for collectors who value authenticity and depth.
         </p>
       </div>
     </section>
 
-    <section id="contact" class="section">
+    <!-- Contact -->
+    <section id="contact">
       <div class="section-head">
-        <h2>Inquire</h2>
-        <p>For purchase and commissions — contact directly.</p>
+        <div>
+          <h2>Inquire</h2>
+          <p>For purchase and commissions — contact directly.</p>
+        </div>
       </div>
 
       <div class="contact">
-        <a class="btn" href="mailto:YOUR_EMAIL@gmail.com?subject=Eden%20ArtHouse%20Inquiry">Email</a>
-        <a class="btn outline" href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noreferrer">Instagram</a>
+        <!-- Replace these with your real contacts -->
+        <a class="btn primary" href="mailto:YOUR_EMAIL@gmail.com?subject=Edem%20ArtHouse%20Inquiry">Email</a>
+        <a class="btn" href="https://instagram.com/YOUR_INSTAGRAM" target="_blank" rel="noreferrer">Instagram</a>
+        <a class="btn ghost" href="#collection" id="backToGallery">Back to gallery</a>
       </div>
-    </section>
-  </main>
 
-  <footer class="footer">
-    <div>© <span id="y"></span> Edem ArtHouse</div>
-  </footer>
+      <footer>
+        © <span id="y"></span> Edem ArtHouse
+        <div class="small-note">All works are originals. No prints. No reproductions.</div>
+      </footer>
+    </section>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-label="Artwork preview">
+      <div class="modal-top">
+        <strong id="mTitle">Artwork</strong>
+        <button class="x" id="mClose" aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal-content">
+        <div class="modal-img"><img id="mImg" alt=""></div>
+        <div class="modal-info">
+          <h2 id="mH2"></h2>
+          <p id="mMeta"></p>
+          <p id="mDesc"></p>
+          <div class="modal-actions">
+            <a class="btn primary" id="mBuy" href="#contact">Inquire</a>
+            <button class="btn" id="mCopy" type="button">Copy inquiry text</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
+    // ===== CONFIG: put your real links here =====
+    const CONTACT_EMAIL = "YOUR_EMAIL@gmail.com";
+    const INSTAGRAM_URL = "https://instagram.com/YOUR_INSTAGRAM";
+
+    // ===== DATA: artworks =====
+    // Note: If you don't have some images yet, remove those objects.
+    const paintings = [
+      { id: 1,  src: "assets/img/painting-01.jpg", title: "Gurzuf near Chekhov's dacha", medium: "Oil on canvas", size: "70×100 cm", year: "2012", price: "€6000", status: "available", tags: ["oil"], description: "One-of-one original. Contact to confirm delivery and framing options." },
+      { id: 2,  src: "assets/img/painting-02.jpg", title: "Simferopol Reservoir", medium: "Watercolor", size: "40×60 cm", year: "2010", price: "€1000", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 3,  src: "assets/img/painting-03.jpg", title: "Khan's Palace", medium: "Oil on canvas", size: "40×60 cm", year: "2009", price: "€5000", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 4,  src: "assets/img/painting-04.jpg", title: "Khan's Palace of Bakhchisaray", medium: "Oil on canvas", size: "40×120 cm", year: "2008", price: "€5000", status: "available", tags: ["oil"], description: "One-of-one original." },
+      { id: 5,  src: "assets/img/painting-05.jpg", title: "KHU named after N.S. Samokisha", medium: "Watercolor", size: "40×60 cm", year: "2011", price: "€800", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 6,  src: "assets/img/painting-06.jpg", title: "Crimean lilac", medium: "Watercolor", size: "50×60 cm", year: "2009", price: "€1100", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 7,  src: "assets/img/painting-07.jpg", title: "Old Alushta", medium: "Oil on canvas", size: "20×50 cm", year: "2005", price: "€2300", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 8,  src: "assets/img/painting-08.jpg", title: "Holidays in Artek", medium: "Oil on canvas", size: "20×50 cm", year: "2007", price: "€2400", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 9,  src: "assets/img/painting-09.jpg", title: "Old Gurzuf", medium: "Oil on canvas", size: "20×50 cm", year: "2008", price: "€4600", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 10, src: "assets/img/painting-10.jpg", title: "Native village of Akropolis", medium: "Watercolor", size: "50×70 cm", year: "2007", price: "€7200", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 11, src: "assets/img/painting-11.jpg", title: "Moscow Bridge in Kyiv", medium: "Watercolor", size: "30×70 cm", year: "2012", price: "€3200", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 12, src: "assets/img/painting-12.jpg", title: "Still life", medium: "Oil on canvas", size: "60×70 cm", year: "2012", price: "€3200", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 13, src: "assets/img/painting-13.jpg", title: "Poor artists", medium: "Oil on canvas", size: "60×70 cm", year: "2012", price: "€2300", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 14, src: "assets/img/painting-14.jpg", title: "Young Japanese master", medium: "Oil on canvas", size: "60×70 cm", year: "2012", price: "€4300", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 15, src: "assets/img/painting-15.jpg", title: "Old Bakhchisarai", medium: "Oil on canvas", size: "60×70 cm", year: "2012", price: "€4300", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 16, src: "assets/img/painting-16.jpg", title: "Vozdvizhenskaya Street, Kyiv", medium: "Watercolor", size: "60×70 cm", year: "2012", price: "€3700", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 17, src: "assets/img/painting-17.jpg", title: "Old Simferopol", medium: "Watercolor", size: "40×50 cm", year: "2006", price: "€1700", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 18, src: "assets/img/painting-18.jpg", title: "Parental home", medium: "Sepia", size: "29.72×42 cm", year: "2004", price: "€12300", status: "sold", tags: ["sepia"], description: "Original sepia work." },
+      { id: 19, src: "assets/img/painting-19.jpg", title: "Grandmother", medium: "Oil on canvas", size: "50×70 cm", year: "2006", price: "€10000", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 20, src: "assets/img/painting-20.jpg", title: "Kyiv Opera House", medium: "Watercolor", size: "50×70 cm", year: "2012", price: "€3100", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 21, src: "assets/img/painting-21.jpg", title: "Cinema House in Simferopol", medium: "Watercolor", size: "29.72×42 cm", year: "2007", price: "€1000", status: "sold", tags: ["watercolor"], description: "Original watercolor work." },
+      { id: 22, src: "assets/img/painting-22.jpg", title: "Stranger on the beach", medium: "Oil on canvas", size: "40×70 cm", year: "2011", price: "€9000", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 23, src: "assets/img/painting-23.jpg", title: "Stranger on the beach", medium: "Oil on canvas", size: "40×70 cm", year: "2011", price: "€9000", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 24, src: "assets/img/painting-24.jpg", title: "Stranger on the beach", medium: "Oil on canvas", size: "40×70 cm", year: "2011", price: "€9000", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 25, src: "assets/img/painting-25.jpg", title: "Stranger on the beach", medium: "Oil on canvas", size: "40×70 cm", year: "2011", price: "€9000", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 26, src: "assets/img/painting-26.jpg", title: "Charles Bridge", medium: "Oil on canvas", size: "40×70 cm", year: "2011", price: "€400", status: "sold", tags: ["oil"], description: "Original oil painting." },
+      { id: 27, src: "assets/img/painting-27.jpg", title: "Church of St. Nicholas, Kyiv", medium: "Watercolor", size: "40×70 cm", year: "2011", price: "€2400", status: "available", tags: ["watercolor"], description: "Original watercolor work. Contact for delivery options." },
+    ];
+
+    // ===== Helpers =====
+    const $ = (s) => document.querySelector(s);
+    const esc = (s) => String(s ?? "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+
+    // ===== Year =====
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // ===== Render gallery =====
+    const gallery = $("#gallery");
+    const search = $("#search");
+    const filters = $("#filters");
+
+    let activeTag = "all";
+
+    const badgeText = (status) => status === "sold" ? "Sold" : "Available";
+    const contactHint = (status) => status === "sold" ? "Not available" : "Worldwide shipping on request";
+
+    function render(){
+      const q = (search?.value || "").trim().toLowerCase();
+
+      const list = paintings.filter(p => {
+        const hay = `${p.title} ${p.medium} ${p.size} ${p.year} ${p.price} ${p.status} ${(p.tags||[]).join(" ")}`.toLowerCase();
+        const matchesQuery = !q || hay.includes(q);
+
+        const matchesTag =
+          activeTag === "all" ||
+          (activeTag === "available" && p.status === "available") ||
+          (activeTag === "sold" && p.status === "sold") ||
+          (p.tags || []).includes(activeTag);
+
+        return matchesQuery && matchesTag;
+      });
+
+      gallery.innerHTML = list.map(p => `
+        <article class="card" data-id="${p.id}">
+          <div class="thumb" data-id="${p.id}">
+            <span class="badge">${badgeText(p.status)}</span>
+            <img src="${p.src}" alt="${esc(p.title)}" loading="lazy">
+          </div>
+          <div class="body">
+            <h3 class="title">${esc(p.title)}</h3>
+            <div class="meta">${esc(p.medium)} • ${esc(p.size)} • ${esc(p.year)}</div>
+            <div class="row">
+              <div>
+                <div class="price">${esc(p.price || "Price on request")}</div>
+                <div class="mini">${contactHint(p.status)}</div>
+              </div>
+              <a class="btn" href="#contact">Inquire</a>
+            </div>
+          </div>
+        </article>
+      `).join("");
+
+      // attach modal events
+      gallery.querySelectorAll(".thumb").forEach(el => {
+        el.addEventListener("click", () => openModal(Number(el.dataset.id)));
+      });
+    }
+
+    // ===== Filters =====
+    filters?.addEventListener("click", (e) => {
+      const pill = e.target.closest(".pill");
+      if(!pill) return;
+
+      activeTag = pill.dataset.tag;
+
+      document.querySelectorAll(".pill").forEach(p => p.classList.remove("active"));
+      pill.classList.add("active");
+      render();
+    });
+
+    search?.addEventListener("input", render);
+
+    // ===== Modal =====
+    const modal = $("#modal");
+    const mClose = $("#mClose");
+    const mImg = $("#mImg");
+    const mTitle = $("#mTitle");
+    const mH2 = $("#mH2");
+    const mMeta = $("#mMeta");
+    const mDesc = $("#mDesc");
+    const mBuy = $("#mBuy");
+    const mCopy = $("#mCopy");
+
+    function openModal(id){
+      const p = paintings.find(x => x.id === id);
+      if(!p) return;
+
+      mTitle.textContent = p.title;
+      mH2.textContent = p.title;
+      mImg.src = p.src;
+      mImg.alt = p.title;
+      mMeta.textContent = `${p.medium} • ${p.size} • ${p.year} • ${p.status === "sold" ? "Sold" : "Available"} • ${p.price || "Price on request"}`;
+      mDesc.textContent = p.description || "One-of-one original artwork. Contact for price and delivery options.";
+      mBuy.href = "#contact";
+
+      modal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeModal(){
+      modal.classList.remove("open");
+      document.body.style.overflow = "";
+    }
+
+    mClose?.addEventListener("click", closeModal);
+    modal?.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+    window.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
+
+    mCopy?.addEventListener("click", async () => {
+      const text =
+`${mH2.textContent}
+${mMeta.textContent}
+
+Hello! I'm interested in this artwork. Please tell me the price and delivery options.`;
+      try{
+        await navigator.clipboard.writeText(text);
+        mCopy.textContent = "Copied ✓";
+        setTimeout(()=> mCopy.textContent = "Copy inquiry text", 1300);
+      }catch(_){
+        alert("Copy failed — you can select the text manually.");
+      }
+    });
+
+    // Update contact links
+    const mailBtn = document.querySelector('a[href^="mailto:YOUR_EMAIL"]');
+    if(mailBtn){
+      mailBtn.href = `mailto:${encodeURIComponent(CONTACT_EMAIL)}?subject=Edem%20ArtHouse%20Inquiry`;
+    }
+    const instaBtn = document.querySelector('a[href*="instagram.com/YOUR_INSTAGRAM"]');
+    if(instaBtn){
+      instaBtn.href = INSTAGRAM_URL;
+    }
+
+    render();
   </script>
 </body>
 </html>
